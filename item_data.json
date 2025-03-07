@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "brandName": "Lucky Me",
+    "itemName": "Instant Pancit Canton",
+    "price": 12.5
+  },
+  {
+    "id": 2,
+    "brandName": "Nescafe",
+    "itemName": "3-in-1 Coffee",
+    "price": 6.0
+  },
+  {
+    "id": 3,
+    "brandName": "Coca-Cola",
+    "itemName": "Soft Drink 1.5L",
+    "price": 45.0
+  },
+  {
+    "id": 4,
+    "brandName": "SkyFlakes",
+    "itemName": "Crackers",
+    "price": 8.0
+  },
+  {
+    "id": 5,
+    "brandName": "Milo",
+    "itemName": "Chocolate Drink",
+    "price": 10.0
+  },
+  {
+    "id": 6,
+    "brandName": "Bear Brand",
+    "itemName": "Powdered Milk",
+    "price": 18.0
+  },
+  {
+    "id": 7,
+    "brandName": "Piattos",
+    "itemName": "Cheese Flavored Chips",
+    "price": 20.0
+  },
+  {
+    "id": 8,
+    "brandName": "Palmolive",
+    "itemName": "Shampoo Sachet",
+    "price": 5.0
+  },
+  {
+    "id": 9,
+    "brandName": "Colgate",
+    "itemName": "Toothpaste Sachet",
+    "price": 10.0
+  },
+  {
+    "id": 10,
+    "brandName": "Silver Swan",
+    "itemName": "Soy Sauce 100ml",
+    "price": 7.0
+  }
+]

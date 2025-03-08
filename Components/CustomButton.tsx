@@ -6,11 +6,10 @@ import {
 import React from "react";
 import ThemedText from "./ThemedText";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { Colors } from "@/assets/Colors/Colors";
 
 type CustomButtonProps = TouchableOpacityProps & {
   name: keyof typeof FontAwesome.glyphMap;
-  iconPosition: "left" | "right";
+  iconPosition?: "left" | "right" | undefined;
   bgColor?: string;
   size?: number;
   color?: string;
@@ -20,7 +19,7 @@ type CustomButtonProps = TouchableOpacityProps & {
 export default function CustomButton({
   name = "facebook",
   title = "Button",
-  iconPosition = "left",
+  iconPosition = undefined,
   bgColor = "lightblue",
   size = 20,
   color = "black",
@@ -35,7 +34,7 @@ export default function CustomButton({
         <FontAwesome name={name} size={size} color={color} />
       ) : null}
 
-      <ThemedText typo="body_bold" style={{ color: Colors.Text.light }}>
+      <ThemedText typo="body_bold" style={{ color: color }}>
         {title}
       </ThemedText>
 
@@ -48,6 +47,7 @@ export default function CustomButton({
 
 const styles = StyleSheet.create({
   button: {
+    marginTop: 20,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",

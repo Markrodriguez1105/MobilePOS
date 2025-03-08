@@ -11,6 +11,8 @@ import ThemedText from "@/Components/ThemedText";
 import Item from "@/Components/Item";
 import Items from "../../item_data.json";
 import Edit from "@/Components/Edit";
+import FloatingButton from "@/Components/FloatingButton";
+import Add from "@/Components/Add";
 
 export default function inventory() {
   const [search, setSearch] = useState("");
@@ -27,6 +29,20 @@ export default function inventory() {
     id: number;
     state: boolean;
   }>({ id: 0, state: false });
+
+  const [showAppModal, setAddModal] = useState(false);
+
+  function addItemHandler(newItem: {
+    id: number;
+    brandName: string;
+    itemName: string;
+    price: number;
+  }) {
+    setItems([
+      ...items,
+      { ...newItem, id: Math.floor(Math.random() * 100) + 11 },
+    ]);
+  }
 
   function setItemsHandler(selectedItem: {
     id: number;
@@ -91,6 +107,15 @@ export default function inventory() {
             );
           })}
       </ScrollView>
+      <FloatingButton
+        iconName="plus"
+        onPress={() => setAddModal(true)}
+      ></FloatingButton>
+      <Add
+        showAppModal={showAppModal}
+        setAddModal={setAddModal}
+        addItemHandler={addItemHandler}
+      ></Add>
     </View>
   );
 }

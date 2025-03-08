@@ -21,7 +21,7 @@ export default function Index() {
         <Menu
           bgcolor={Colors.Primary.normal}
           label="Inventory"
-          iconName="shopping-basket"
+          iconName="archive"
           onPress={() => router.navigate("/(pages)/inventory")}
         />
       </View>

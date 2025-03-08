@@ -54,6 +54,7 @@ export default function Edit({
         style={{
           justifyContent: "center",
           flex: 1,
+          backgroundColor: "hsla(208, 26.80%, 86.10%, 0.51)",
         }}
       >
         <View
@@ -61,8 +62,17 @@ export default function Edit({
             backgroundColor: Colors.Text.light,
             padding: 20,
             margin: 50,
-            borderRadius: 30,
+            borderRadius: 20,
             gap: 10,
+
+            shadowColor: "#000",
+            shadowOffset: {
+              width: 0,
+              height: 2,
+            },
+            shadowOpacity: 0.25,
+            shadowRadius: 3.84,
+            elevation: 10,
           }}
         >
           <ThemedText typo="header5">Edit Product Info</ThemedText>

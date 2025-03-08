@@ -19,6 +19,10 @@ export default function RootLayout() {
           options={{ title: "Sell Items", headerShown: false }}
         />
         <Stack.Screen
+          name="(pages)/inventory"
+          options={{ title: "Inventory", headerShown: false }}
+        />
+        <Stack.Screen
           name="index"
           options={{
             headerShown: false,

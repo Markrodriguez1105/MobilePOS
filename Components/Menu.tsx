@@ -11,7 +11,7 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 export type MenuProps = TouchableOpacityProps & {
   label?: string;
   bgcolor?: string;
-  iconName?: "shopping-cart" | "shopping-basket";
+  iconName?: keyof typeof FontAwesome.glyphMap;
 };
 
 export function Menu({ label, bgcolor, iconName, ...rest }: MenuProps) {

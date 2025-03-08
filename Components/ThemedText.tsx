@@ -15,8 +15,8 @@ export type ThemedTextProps = TextProps & {
     | "note";
 };
 
-export default function ThemedText({ typo, ...rest }: ThemedTextProps) {
-  return <Text style={[styles[typo]]} {...rest} />;
+export default function ThemedText({ typo, style, ...rest }: ThemedTextProps) {
+  return <Text style={[styles[typo], style]} {...rest} />;
 }
 
 const styles = StyleSheet.create({

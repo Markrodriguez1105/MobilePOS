@@ -22,7 +22,7 @@ export default function Index() {
           bgcolor={Colors.Primary.normal}
           label="Inventory"
           iconName="shopping-basket"
-          onPress={() => router.navigate("/(pages)/sell")}
+          onPress={() => router.navigate("/(pages)/inventory")}
         />
       </View>
     </View>

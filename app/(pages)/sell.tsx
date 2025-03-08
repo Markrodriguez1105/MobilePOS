@@ -56,13 +56,7 @@ export default function sell() {
             <TouchableOpacity
               key={item.id}
               onPress={() => {
-                setItems(
-                  items.map((itemUpdate) =>
-                    itemUpdate.id === item.id
-                      ? { ...itemUpdate, quantity: ++itemUpdate.quantity }
-                      : itemUpdate
-                  )
-                );
+                editQuantityHandler(item, 1);
               }}
             >
               <Item
@@ -92,9 +86,48 @@ export default function sell() {
         parentModalVisible={quantityVisible}
         parentSetQuantityVisible={setQuantityVisible}
         cart={items.filter((item) => item.quantity > 0)}
+        parentEditQuantity={editQuantityHandler}
+        parentSetQuantity={setQuantityHandler}
       />
     </View>
   );
+
+  function editQuantityHandler(
+    item: {
+      id: number;
+      brandName: string;
+      itemName: string;
+      price: number;
+      quantity: number;
+    },
+    amount: number
+  ) {
+    setItems(
+      items.map((itemUpdate) =>
+        itemUpdate.id === item.id
+          ? { ...itemUpdate, quantity: itemUpdate.quantity + amount }
+          : itemUpdate
+      )
+    );
+  }
+  function setQuantityHandler(
+    item: {
+      id: number;
+      brandName: string;
+      itemName: string;
+      price: number;
+      quantity: number;
+    },
+    amount: number
+  ) {
+    setItems(
+      items.map((itemUpdate) =>
+        itemUpdate.id === item.id
+          ? { ...itemUpdate, quantity: amount }
+          : itemUpdate
+      )
+    );
+  }
 }
 
 function totalAmount(

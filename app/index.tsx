@@ -18,6 +18,12 @@ export default function Index() {
           iconName="shopping-basket"
           onPress={() => router.navigate("/(pages)/sell")}
         />
+        <Menu
+          bgcolor={Colors.Primary.normal}
+          label="Inventory"
+          iconName="shopping-basket"
+          onPress={() => router.navigate("/(pages)/sell")}
+        />
       </View>
     </View>
   );
@@ -30,8 +36,8 @@ const styles = StyleSheet.create({
   },
 
   logo_container: {
-    flex: 1,
-    justifyContent: "center",
+    height: 300,
+    justifyContent: "flex-end",
     alignItems: "center",
   },
 
@@ -49,5 +55,6 @@ const styles = StyleSheet.create({
   menu_list: {
     flex: 1,
     alignItems: "center",
+    gap: 30,
   },
 });

@@ -1,4 +1,10 @@
-import { Modal, StyleSheet, View } from "react-native";
+import {
+  Modal,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import React from "react";
 import ThemedText from "./ThemedText";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
@@ -14,12 +20,34 @@ type ViewQuantityProps = {
     price: number;
     quantity: number;
   }[];
+  parentEditQuantity: (
+    item: {
+      id: number;
+      brandName: string;
+      itemName: string;
+      price: number;
+      quantity: number;
+    },
+    amount: number
+  ) => void;
+  parentSetQuantity: (
+    item: {
+      id: number;
+      brandName: string;
+      itemName: string;
+      price: number;
+      quantity: number;
+    },
+    amount: number
+  ) => void;
 };
 
 export default function ViewQuantity({
   parentModalVisible,
   parentSetQuantityVisible,
   cart,
+  parentEditQuantity,
+  parentSetQuantity,
 }: ViewQuantityProps) {
   return (
     <Modal
@@ -42,7 +70,46 @@ export default function ViewQuantity({
                 <ThemedText typo="body">{item.itemName}</ThemedText>
               </View>
               <View style={{ flexDirection: "column" }}>
-                <ThemedText typo="body">Unit Price: {item.price}</ThemedText>
+                {/* <ThemedText typo="body">Unit Price: {item.price}</ThemedText> */}
+                <View
+                  style={{
+                    flexDirection: "row",
+                    flex: 1,
+                    gap: 10,
+                  }}
+                >
+                  <TouchableOpacity
+                    style={styles.adjustment}
+                    onPress={() => parentEditQuantity(item, -1)}
+                  >
+                    {item.quantity > 1 ? (
+                      <FontAwesome name="minus" color={Colors.Text.dark} />
+                    ) : (
+                      <FontAwesome name="trash" color="red" size={20} />
+                    )}
+                  </TouchableOpacity>
+                  <TextInput
+                    style={{
+                      borderBottomWidth: 1,
+                      borderColor: Colors.Primary.medium,
+                    }}
+                    keyboardType="numeric"
+                    value={String(item.quantity)}
+                    onChangeText={(text) =>
+                      parentSetQuantity(item, Number(text))
+                    }
+                  />
+                  <TouchableOpacity
+                    style={styles.adjustment}
+                    onPress={() => parentEditQuantity(item, 1)}
+                  >
+                    <FontAwesome
+                      name="plus"
+                      size={15}
+                      color={Colors.Text.dark}
+                    />
+                  </TouchableOpacity>
+                </View>
               </View>
             </View>
           ))
@@ -83,5 +150,11 @@ const styles = StyleSheet.create({
     flex: 1,
     margin: 20,
     gap: 20,
+  },
+
+  adjustment: {
+    alignItems: "center",
+    justifyContent: "center",
+    width: 30,
   },
 });

@@ -1,20 +1,27 @@
 import {
+  BackHandler,
   ScrollView,
   StyleSheet,
   TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Colors } from "../../assets/Colors/Colors";
 import ThemedText from "@/Components/ThemedText";
 import Item from "@/Components/Item";
-import Items from "@/item_data.json";
 import ViewQuantity from "@/Components/ViewQuantity";
+import { useItemContext } from "@/Context/context";
 
-export default function sell() {
+type sellProps = {
+  setSceen: (input: number) => void;
+};
+
+export default function sell({ setSceen }: sellProps) {
   const [search, setSearch] = useState("");
-  const [items, setItems] = useState<
+  const items = useItemContext();
+
+  const [pickedItems, setPickedItems] = useState<
     {
       id: number;
       brandName: string;
@@ -22,16 +29,23 @@ export default function sell() {
       price: number;
       quantity: number;
     }[]
-  >(
-    Items.map((item) => {
-      return {
-        ...item,
-        quantity: 0,
-      };
-    })
-  );
+  >(items.map((item) => ({ ...item, quantity: 0 })));
 
   const [quantityVisible, setQuantityVisible] = useState(false);
+
+  useEffect(() => {
+    const backAction = () => {
+      setSceen(1);
+      return true; // Prevent default behavior (exiting the app)
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+
+    return () => backHandler.remove(); // Cleanup on unmount
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -46,7 +60,7 @@ export default function sell() {
         Note: Click the item to add to cart and increase the quantity.
       </ThemedText>
       <ScrollView contentContainerStyle={styles.container_list}>
-        {items
+        {pickedItems
           .filter(
             (item) =>
               item.itemName.toLowerCase().includes(search.toLowerCase()) ||
@@ -75,17 +89,17 @@ export default function sell() {
         style={styles.total_container}
       >
         <ThemedText typo="body_bold">
-          Items: {items.filter((item) => item.quantity > 0).length}
+          Items: {pickedItems.filter((item) => item.quantity > 0).length}
         </ThemedText>
         <ThemedText typo="body_bold">
           Total Price: ₱{" "}
-          {totalAmount(items.filter((item) => item.quantity > 0))}
+          {totalAmount(pickedItems.filter((item) => item.quantity > 0))}
         </ThemedText>
       </TouchableOpacity>
       <ViewQuantity
         parentModalVisible={quantityVisible}
         parentSetQuantityVisible={setQuantityVisible}
-        cart={items.filter((item) => item.quantity > 0)}
+        cart={pickedItems.filter((item) => item.quantity > 0)}
         parentEditQuantity={editQuantityHandler}
         parentSetQuantity={setQuantityHandler}
       />
@@ -102,8 +116,8 @@ export default function sell() {
     },
     amount: number
   ) {
-    setItems(
-      items.map((itemUpdate) =>
+    setPickedItems(
+      pickedItems.map((itemUpdate) =>
         itemUpdate.id === item.id
           ? { ...itemUpdate, quantity: itemUpdate.quantity + amount }
           : itemUpdate
@@ -120,8 +134,8 @@ export default function sell() {
     },
     amount: number
   ) {
-    setItems(
-      items.map((itemUpdate) =>
+    setPickedItems(
+      pickedItems.map((itemUpdate) =>
         itemUpdate.id === item.id
           ? { ...itemUpdate, quantity: amount }
           : itemUpdate

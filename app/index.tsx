@@ -1,38 +1,50 @@
-import { Text, View, StyleSheet } from "react-native";
-import React from "react";
+import { StyleSheet, SafeAreaView } from "react-native";
+import React, { useState } from "react";
 import { Colors } from "../assets/Colors/Colors";
-import { Menu } from "../Components/Menu";
-import { router } from "expo-router";
+import { ProductContext } from "@/Context/context";
+import Items from "@/item_data.json";
+import Landing from "./(pages)/landing";
+import Sell from "./(pages)/sell";
+import Inventory from "./(pages)/inventory";
 
 export default function Index() {
+  const [items, setItems] = useState<
+    {
+      id: number;
+      brandName: string;
+      itemName: string;
+      price: number;
+    }[]
+  >(Items);
+
+  const [screen, setScreen] = useState<React.JSX.Element>(
+    <Landing setSceen={changeScreen} />
+  );
+
+  function changeScreen(input: number) {
+    switch (input) {
+      case 1:
+        setScreen(<Landing setSceen={changeScreen} />);
+        break;
+      case 2:
+        setScreen(<Sell setSceen={changeScreen} />);
+        break;
+      case 3:
+        setScreen(<Inventory setSceen={changeScreen} setItems={setItems} />);
+        break;
+    }
+  }
+
   return (
-    <View style={styles.container}>
-      <View style={styles.logo_container}>
-        <Text style={styles.typo_logo}>SARI SYSTEM</Text>
-        <Text style={styles.sub_title}>Point of Sale System</Text>
-      </View>
-      <View style={styles.menu_list}>
-        <Menu
-          bgcolor={Colors.Primary.normal}
-          label="Sell Items"
-          iconName="shopping-basket"
-          onPress={() => router.navigate("/(pages)/sell")}
-        />
-        <Menu
-          bgcolor={Colors.Primary.normal}
-          label="Inventory"
-          iconName="archive"
-          onPress={() => router.navigate("/(pages)/inventory")}
-        />
-      </View>
-    </View>
+    <ProductContext.Provider value={items}>
+      <SafeAreaView style={styles.container}>{screen}</SafeAreaView>
+    </ProductContext.Provider>
   );
 }
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.Primary.light,
-    gap: 50,
   },
 
   logo_container: {

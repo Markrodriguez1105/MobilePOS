@@ -68,7 +68,6 @@ export default function Add({
               bgColor={Colors.Primary.normal}
               onPress={() => {
                 addItemHandler(item);
-                console.log(item);
                 setAddModal(false);
               }}
             ></CustomButton>
